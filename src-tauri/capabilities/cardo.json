@@ -2,7 +2,9 @@
   "identifier": "migrated",
   "description": "permissions that were migrated from v1",
   "local": true,
-  "windows": ["main"],
+  "windows": [
+    "main"
+  ],
   "permissions": [
     "core:default",
     "fs:default",
@@ -10,7 +12,11 @@
     "fs:write-all",
     {
       "identifier": "fs:scope",
-      "allow": ["$APPCACHE/**", "$APPCONFIG/**", "$RESOURCE/**"]
+      "allow": [
+        "$APPCACHE/**",
+        "$APPCONFIG/**",
+        "$RESOURCE/**"
+      ]
     },
     "core:window:default",
     "core:window:allow-close",
@@ -23,10 +29,16 @@
       "identifier": "http:default",
       "allow": [
         {
-          "url": "https://*/"
+          "url": "https://*"
         },
         {
-          "url": "http://*/"
+          "url": "https://*:*"
+        },
+        {
+          "url": "http://*"
+        },
+        {
+          "url": "http://*:*"
         }
       ]
     },

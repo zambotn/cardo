@@ -40,7 +40,7 @@ export function NextcloudSettings() {
     <div className="flex h-full w-full gap-2 p-1">
       <img
         className="w-32 shrink-0"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Nextcloud_Logo.svg/141px-Nextcloud_Logo.svg.png"
+        src="https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg"
         alt="Nextcloud logo"
       />
       <form

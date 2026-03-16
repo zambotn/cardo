@@ -19,6 +19,7 @@ export interface Credentials {
   server: string
   user: string
   password: string
+  deviceName?: string
 }
 
 export type SyncProtocol = 'nextcloud' | 'gpodder' | null

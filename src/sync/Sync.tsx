@@ -66,10 +66,10 @@ export function SyncProvider({ children }: { children: React.ReactNode }) {
       throw new Error('Sync key missing. Please reconnect sync in settings.')
     }
 
-    const { server, loginName: encryptedLoginName, appPassword: encryptedAppPassword } = creds
+    const { server, loginName: encryptedLoginName, appPassword: encryptedAppPassword, deviceName } = creds
     const loginName: string = await invoke('decrypt', { encryptedText: encryptedLoginName, base64Key: syncKey })
     const appPassword: string = await invoke('decrypt', { encryptedText: encryptedAppPassword, base64Key: syncKey })
-    return { server: server, user: loginName, password: appPassword }
+    return { server: server, user: loginName, password: appPassword, deviceName }
   }
 
   const load = async () => {
@@ -156,7 +156,7 @@ export function SyncProvider({ children }: { children: React.ReactNode }) {
       await setLastSync(Date.now())
       setStatus('ok')
     } catch (e) {
-      console.error(e)
+      console.error(String(e))
       setError(e instanceof Error ? e.message : String(e))
       setStatus('error')
     }
