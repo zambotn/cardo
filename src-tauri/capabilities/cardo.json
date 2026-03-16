@@ -19,6 +19,8 @@
       ]
     },
     "core:window:default",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-minimize",
     "core:window:allow-close",
     "core:window:allow-destroy",
     "core:window:allow-start-dragging",
@@ -27,20 +29,7 @@
     "shell:default",
     {
       "identifier": "http:default",
-      "allow": [
-        {
-          "url": "https://*"
-        },
-        {
-          "url": "https://*:*"
-        },
-        {
-          "url": "http://*"
-        },
-        {
-          "url": "http://*:*"
-        }
-      ]
+      "allow": [{ "url": "http://*:*" }, { "url": "https://*:*" }]
     },
     "global-shortcut:default",
     "global-shortcut:allow-is-registered",
