@@ -146,7 +146,7 @@ export function SyncProvider({ children }: { children: React.ReactNode }) {
         position: update.position,
         started: update.position,
         total: update.total,
-        action: 'PLAY',
+        action: 'play',
         timestamp: update.timestamp,
       }))
 

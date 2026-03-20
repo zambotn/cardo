@@ -195,7 +195,7 @@ export const gpodderProtocol: ProtocolFn = function (creds) {
   }
 
   async function pushEpisodes(updates: GpodderUpdate[]) {
-    const { server, user, password } = creds
+    const { server, user, password, deviceName } = creds
 
     const url = buildApiUrl(server, `/api/2/episodes/${encodeURIComponent(user)}.json`)
 
@@ -208,13 +208,14 @@ export const gpodderProtocol: ProtocolFn = function (creds) {
       body: JSON.stringify(
         updates.map((update) => ({
           ...update,
+          device: deviceName,
           timestamp: new Date(update.timestamp).toISOString(),
         })),
       ),
     })
 
     if (!r.ok) {
-      throw Error('Failed pushing episodes to gpodder server')
+      throw Error(`Failed pushing episodes to gpodder server (${r.status})`)
     }
   }
 
