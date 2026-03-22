@@ -4,7 +4,6 @@ import { checkURLScheme, saveCreds, toastError } from '../../utils/utils'
 import { useMisc, useSync } from '../../ContextProviders'
 import { invoke } from '@tauri-apps/api/core'
 import { createOrUpdateDevice, GpodderDevice, listDevices, login, normalizeDeviceId } from '../../sync/Gpodder'
-import { login } from '../../sync/Gpodder'
 import gpodderLogo from '../../assets/gpodder.png'
 
 export function GpodderSettings() {
