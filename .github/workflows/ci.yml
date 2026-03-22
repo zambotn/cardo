@@ -7,6 +7,23 @@ on:
       - master
 
 jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: lint
+        run: pnpm lint
+
   build:
     strategy:
       fail-fast: false
@@ -23,7 +40,7 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: setup build environment
         uses: ./.github/actions/setup

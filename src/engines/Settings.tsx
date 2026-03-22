@@ -1,4 +1,3 @@
-import {  } from '@tauri-apps/api'
 import { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs'
@@ -6,6 +5,7 @@ import { RecursivePartial, Settings, SortCriterion, TailwindBaseColor, ColorThem
 import { SwitchState } from '../components/Inputs'
 import { changeLanguage } from './translations'
 import merge from 'lodash/merge'
+import debounce from 'lodash/debounce'
 import colors from 'tailwindcss/colors'
 import { DefaultTheme, DefaultThemes } from '../DefaultThemes'
 import * as os from "@tauri-apps/plugin-os"
@@ -189,10 +189,25 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     setSettings(settingsClone)
   }
 
+  const debouncedWrite = useRef(
+    debounce((newSettings: Settings) => {
+      if (!settingsFile.current) return
+      writeTextFile(settingsFile.current, JSON.stringify(newSettings, null, 2))
+    }, 500),
+  ).current
+
+  useEffect(() => {
+    const flush = () => debouncedWrite.flush()
+    window.addEventListener('beforeunload', flush)
+    return () => {
+      flush()
+      window.removeEventListener('beforeunload', flush)
+    }
+  }, [])
+
   useEffect(() => {
     if (!loaded) return
-
-    writeSettingsFile(settings) // update jsonwriteSettingsFile(newSettings) // update json
+    debouncedWrite(settings)
   }, [settings, loaded])
 
   const readSettingsFromFile = async (): Promise<Settings | undefined> => {
@@ -201,12 +216,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     } catch {
       return undefined
     }
-  }
-
-  const writeSettingsFile = async (newSettings: Settings) => {
-    if (!settingsFile.current) return
-
-    writeTextFile(settingsFile.current, JSON.stringify(newSettings, null, 2))
   }
 
   const setOSInfo = async () => {

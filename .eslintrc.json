@@ -1,12 +1,12 @@
 {
   "extends": "react-app",
   "plugins": [
-    "react-hooks",
     "react-refresh"
   ],
   // ...
   "rules": {
     "react-hooks/exhaustive-deps": 0,
-    "react-refresh/only-export-components": "warn"
+    "react-refresh/only-export-components": "warn",
+    "import/no-empty-named-blocks": "error"
   }
 }

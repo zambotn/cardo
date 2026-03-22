@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { TailwindBaseColor } from '..'
 import { DefaultTheme, DefaultThemes, BasicColors } from '../DefaultThemes'
 import appIcon from '../../src-tauri/icons/icon.png'
-import {  } from '@tauri-apps/api'
 import { appConfigDir, join, resolveResource } from '@tauri-apps/api/path'
 import { readDir } from '@tauri-apps/plugin-fs'
 import tauriConfig from '../../src-tauri/tauri.conf.json'
@@ -170,20 +169,9 @@ function Settings() {
       <div className="flex flex-col gap-1 rounded-md border-2 border-primary-8 p-2">
         <h1 className="mb-2 border-b-2 border-primary-8 uppercase">{t('import/export')}</h1>
         <div className="flex gap-3">
-          <label>
+          <button className="filled-button" onClick={importOPML}>
             {t('import_opml')}
-            <input
-              type="file"
-              accept=".opml"
-              className=""
-              onChange={(e) => {
-                const files = e.target.files
-                if (files?.length) {
-                  importOPML(files[0])
-                }
-              }}
-            />
-          </label>
+          </button>
           <button className="filled-button" onClick={exportOPML}>
             {t('export_opml')}
           </button>
